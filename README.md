@@ -1,1 +1,1 @@
-# apex-to-elastiocsearh
+# apex-to-elasticsearch
