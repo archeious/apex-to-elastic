@@ -55,3 +55,4 @@ for record in records:
 
     resp = es.index(index=elastic_index, document=es_doc)
     print(resp['result'])
+    
