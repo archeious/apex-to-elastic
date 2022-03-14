@@ -3,12 +3,19 @@ from elasticsearch import Elasticsearch
 import json
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 import pprint
 import requests
 import xmltodict
 
 
-load_dotenv()
+basepath = Path()
+basedir = str(basepath.cwd())
+# Load the environment variables
+envars = basepath.cwd() / '.env'
+print("Loading config from " + str(envars))
+load_dotenv(envars)
+
 base_url      = os.environ.get("apex-url")
 elastic_url   = os.environ.get("elastic-url")
 elastic_index = os.environ.get("elastic-index")
@@ -32,6 +39,7 @@ result = es.search(
 now = datetime.strptime(result["hits"]["hits"][0]["_source"]["timestamp"].replace(':', ''), "%Y-%m-%dT%H%M%S%z" ) + timedelta(minutes=1)
 
 url = base_url + '/cgi-bin/datalog.xml?sdate=' + now.strftime("%y%m%d%H%M")
+print("Connecting to " + url)
 response = requests.get(url)
 data = xmltodict.parse(response.content)
 
