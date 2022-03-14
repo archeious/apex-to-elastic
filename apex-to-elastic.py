@@ -9,12 +9,7 @@ import requests
 import xmltodict
 
 
-basepath = Path()
-basedir = str(basepath.cwd())
-# Load the environment variables
-envars = basepath.cwd() / '.env'
-print("Loading config from " + str(envars))
-load_dotenv(envars)
+load_dotenv()
 
 base_url      = os.environ.get("apex-url")
 elastic_url   = os.environ.get("elastic-url")
